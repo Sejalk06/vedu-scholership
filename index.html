@@ -1,0 +1,369 @@
+from pathlib import Path
+
+html = r'''<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#183a72">
+<title>वेदांतची शिष्यवृत्ती तयारी 🌟</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap');
+:root{--navy:#183a72;--blue:#3478f6;--sky:#e9f4ff;--gold:#ffca55;--ink:#1c2a49;--muted:#64748b;--green:#168653;--red:#c73d4d;--card:#fff;--shadow:0 12px 35px rgba(36,67,122,.12)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:linear-gradient(180deg,#f0f7ff 0,#fff9eb 52%,#f2f6ff 100%);color:var(--ink);font-family:"Baloo 2","Noto Sans Devanagari",sans-serif;min-height:100vh}
+button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #ffb72b;outline-offset:3px}
+.hero{position:relative;overflow:hidden;text-align:center;padding:30px 16px 34px;color:white;background:linear-gradient(135deg,#17336b,#2d70cf 65%,#5dbce8)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:#ffffff12}
+.hero:before{width:220px;height:220px;top:-110px;left:-65px}.hero:after{width:260px;height:260px;right:-110px;bottom:-170px}
+.hero-inner{position:relative;z-index:1;max-width:780px;margin:auto}
+.badge{display:inline-block;border:1px solid #ffffff66;background:#ffffff20;border-radius:99px;padding:5px 13px;font-size:13px;letter-spacing:.2px}
+.hero h1{font-size:clamp(27px,5vw,43px);line-height:1.25;margin:13px 0 7px;font-weight:800}
+.hero p{font-size:clamp(15px,2.5vw,19px);margin:6px auto;max-width:620px}
+.hero .hero-motto{color:#fff1b9;font-weight:700;font-size:18px}
+.wrap{max-width:980px;padding:0 14px;margin:0 auto}
+main{padding:18px 0 35px}
+.welcome{background:#fff;border:2px solid #ffe09a;border-radius:22px;padding:18px 16px;text-align:center;box-shadow:var(--shadow);margin:0 auto 18px;max-width:850px}
+.welcome .emoji{font-size:36px}.welcome h2{margin:3px 0 7px;font-size:25px;color:#17417f}
+.welcome p{margin:5px auto;max-width:690px;line-height:1.65}
+.welcome strong{color:#bc6c00}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}
+.stat{background:#fff;border-radius:16px;padding:12px 7px;text-align:center;box-shadow:var(--shadow);border:1px solid #e5edfa}
+.stat .num{display:block;font-size:25px;font-weight:800;color:#245eb8;line-height:1.2}
+.stat .label{font-size:12px;color:var(--muted)}
+.card{background:var(--card);border:1px solid #e2eaf7;border-radius:21px;padding:17px;box-shadow:var(--shadow);margin-bottom:16px}
+.section-title{font-size:21px;margin:0 0 12px;color:#183a72}
+.subjects{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.subject{border:2px solid #e2eaf7;background:#f8fbff;color:#23416e;border-radius:15px;padding:12px 9px;min-height:72px;text-align:left;display:flex;align-items:center;gap:10px;font-weight:700;line-height:1.35}
+.subject .icon{font-size:26px;flex-shrink:0}
+.subject small{display:block;font-size:12px;font-weight:500;color:#6c7c97;margin-top:3px}
+.subject.active{background:#e9f2ff;border-color:#3979e5;box-shadow:0 4px 12px #3979e522}
+.paperline{margin:14px 0 0;background:#fff6db;border:1px solid #ffe6a0;color:#805300;border-radius:12px;padding:10px 12px;font-size:14px;line-height:1.5}
+.quiz-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#687b99;font-size:13px}
+.pill{background:#edf4ff;color:#2456a0;padding:5px 10px;border-radius:99px;font-weight:700}
+.progress{height:9px;background:#eaf0fa;border-radius:99px;overflow:hidden;margin:12px 0 18px}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,#34b7ed,#3478f6);border-radius:99px;transition:width .25s}
+.question{font-size:clamp(20px,3vw,26px);line-height:1.55;margin:10px 0 17px;overflow-wrap:anywhere}
+.options{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.option{background:#fff;border:2px solid #dce6f5;color:#233756;border-radius:14px;text-align:left;padding:13px 12px;min-height:58px;line-height:1.5;transition:transform .12s,border-color .12s}
+.option:hover:not(:disabled){border-color:#6da0f5;transform:translateY(-1px)}
+.option .letter{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;margin-right:7px;border-radius:9px;background:#edf3ff;color:#2e61ad;font-weight:800;vertical-align:middle}
+.option.correct{background:#e5f8ed;border-color:#27a567;color:#135f3a}
+.option.correct .letter{background:#c8f0d8;color:#14643b}
+.option.wrong{background:#fff0f0;border-color:#df5962;color:#9f2631}
+.option.wrong .letter{background:#ffdbdd;color:#9f2631}
+.option:disabled{cursor:default}
+.feedback{display:none;margin-top:15px;border-radius:15px;padding:14px;line-height:1.7}
+.feedback.good{display:block;background:#e8f9ee;border:1px solid #b8e9ca;color:#155d36}
+.feedback.bad{display:block;background:#fff1e9;border:1px solid #ffd0b7;color:#853b1d}
+.feedback .answer{font-size:17px;font-weight:800}
+.controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+.btn{border:0;border-radius:13px;padding:12px 16px;font-weight:700;min-height:46px}
+.btn-primary{background:linear-gradient(135deg,#2d70d5,#2452a3);color:white;box-shadow:0 5px 12px #2d70d533}
+.btn-soft{background:#edf3fc;color:#244a80}
+.btn-gold{background:#ffcf64;color:#563b00}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.controls .btn{flex:1}
+.note{font-size:13px;color:#6b7890;line-height:1.6;margin:13px 2px 0}
+.result{display:none;text-align:center;background:linear-gradient(135deg,#fff8df,#fff);border:2px solid #ffe09a;border-radius:19px;padding:20px;margin-top:16px}
+.result .big{font-size:44px}.result h2{color:#1a4b92;margin:4px 0}
+.result p{line-height:1.7}
+footer{text-align:center;padding:23px 14px 32px;color:#687894;font-size:13px;line-height:1.8}
+footer strong{color:#2456a0}
+.overlay{position:fixed;inset:0;z-index:10;background:#10244bd9;display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.modal{background:#fffdf6;max-width:480px;width:100%;border-radius:26px;padding:25px 20px;text-align:center;box-shadow:0 20px 70px #07162d66;border:3px solid #ffda80;animation:pop .35s ease}
+@keyframes pop{from{transform:scale(.92);opacity:.4}to{transform:scale(1);opacity:1}}
+.modal .mascot{font-size:64px;line-height:1.2}
+.modal h2{font-size:27px;color:#1c478c;margin:10px 0}
+.modal p{line-height:1.75;margin:9px 0}
+.modal .encourage{background:#fff2c8;border-radius:15px;padding:12px;color:#76500b;font-weight:700}
+.modal .btn{width:100%;margin-top:13px;font-size:17px}
+.hidden{display:none!important}
+@media(max-width:560px){
+ .hero{padding:24px 13px 27px}.hero h1{font-size:29px}
+ .wrap{padding:0 11px}.card{padding:14px;border-radius:18px}
+ .subjects{gap:8px}.subject{padding:10px 8px;min-height:76px;font-size:14px;gap:7px}
+ .subject .icon{font-size:23px}.subject small{font-size:11px}
+ .options{grid-template-columns:1fr;gap:9px}.option{min-height:54px;padding:12px}
+ .stats{gap:7px}.stat{padding:11px 4px}.stat .num{font-size:22px}.stat .label{font-size:11px}
+ .controls{gap:8px}.controls .btn{min-width:42%;padding:11px 8px;font-size:14px}
+ .welcome{padding:15px 12px}.welcome h2{font-size:22px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <span class="badge">🌟 खास वेदांतसाठी तयार केलेली अभ्यासाची दुनिया</span>
+    <h1>वेदांतची शिष्यवृत्ती तयारी</h1>
+    <p>खेळत-खेळत शिकूया, आत्मविश्वासाने पुढे जाऊया!</p>
+    <p class="hero-motto">💙 वेदांत, तू नक्कीच करू शकतोस! 💛</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="welcome">
+    <div class="emoji">🚀📚</div>
+    <h2>नमस्कार वेदांत!</h2>
+    <p>आज तू शिकण्यासाठी इथे आलास, हीच खूप छान गोष्ट आहे. प्रत्येक प्रश्न तुला आणखी हुशार बनवेल. एखादे उत्तर चुकले तरी काळजी करू नकोस—चुकांमधूनच आपण शिकतो!</p>
+    <p><strong>तू मेहनत करतोस, तू हुशार आहेस आणि तू स्वतःची सर्वोत्तम कामगिरी करू शकतोस!</strong></p>
+  </section>
+
+  <section class="stats" aria-label="सरावाची प्रगती">
+    <div class="stat"><span class="num" id="attempted">०</span><span class="label">सोडवलेले प्रश्न</span></div>
+    <div class="stat"><span class="num" id="correctCount">०</span><span class="label">बरोबर उत्तरे</span></div>
+    <div class="stat"><span class="num" id="accuracy">०%</span><span class="label">अचूकता</span></div>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title">🎒 आज कोणता विषय शिकायचा?</h2>
+    <div class="subjects">
+      <button class="subject active" data-subject="मराठी"><span class="icon">📖</span><span>मराठी<small>शब्द, व्याकरण आणि भाषा</small></span></button>
+      <button class="subject" data-subject="गणित"><span class="icon">🧮</span><span>गणित<small>अंक आणि उदाहरणे</small></span></button>
+      <button class="subject" data-subject="English"><span class="icon">🔤</span><span>English<small>English questions & options</small></span></button>
+      <button class="subject" data-subject="बुद्धिमत्ता"><span class="icon">🧠</span><span>बुद्धिमत्ता चाचणी<small>तर्क आणि निरीक्षण</small></span></button>
+    </div>
+    <div class="paperline" id="paperInfo">📘 पेपर १ — मराठी व गणित</div>
+  </section>
+
+  <section class="card" id="quizCard">
+    <div class="quiz-head">
+      <span class="pill" id="questionNumber">प्रश्न १</span>
+      <span id="subjectName">विषय: मराठी</span>
+      <span id="roundName">सराव फेरी १</span>
+    </div>
+    <div class="progress" aria-label="फेरीतील प्रगती"><div class="progress-fill" id="progressFill"></div></div>
+    <h2 class="question" id="question">प्रश्न तयार होत आहे...</h2>
+    <div class="options" id="options"></div>
+    <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    <div class="controls">
+      <button class="btn btn-gold" id="hintBtn">💡 छोटासा संकेत</button>
+      <button class="btn btn-soft" id="skipBtn">हा प्रश्न सोडून दे</button>
+      <button class="btn btn-primary hidden" id="nextBtn">पुढचा प्रश्न ➜</button>
+    </div>
+    <p class="note">💡 प्रत्येक प्रश्नाला चार पर्याय आहेत. उत्तर निवडल्यावर योग्य उत्तर आणि सोप्या मराठीत स्पष्टीकरण दिसेल. सोडून दिलेल्या प्रश्नाचे उत्तरही पुढे पाहता येईल.</p>
+  </section>
+
+  <section class="result" id="result">
+    <div class="big">🏆✨🎉</div>
+    <h2>शाब्बास वेदांत!</h2>
+    <p id="finalScore"></p>
+    <p><strong>लक्षात ठेव: गुणांपेक्षा शिकण्याची जिद्द महत्त्वाची आहे!</strong></p>
+    <button class="btn btn-primary" id="restartBtn">🔁 पुन्हा सराव करूया</button>
+  </section>
+
+  <section class="card">
+    <h2 class="section-title">💛 वेदांतसाठी आजचा मंत्र</h2>
+    <p style="line-height:1.8;margin-bottom:0">“मी रोज थोडे थोडे शिकेन. चूक झाली तरी पुन्हा प्रयत्न करेन. मी धैर्यवान आहे, मी मेहनती आहे आणि मी नक्की प्रगती करेन!” 🌈</p>
+  </section>
+</main>
+
+<footer>
+  <strong>वेदांत, तू तुझ्या परीने सर्वोत्तम प्रयत्न करत आहेस! 💙</strong><br>
+  तू खूप छान मुलगा आहेस. स्वतःवर विश्वास ठेव, आनंदाने शिक आणि प्रयत्न करत राहा! 🌟<br>
+  <span>हा सराव संच अभ्यासासाठी तयार केलेला आहे. अधिकृत मागील वर्षांच्या प्रश्नपत्रिकेची हमी नाही.</span>
+</footer>
+
+<div class="overlay" id="welcomeModal" role="dialog" aria-modal="true" aria-labelledby="welcomeTitle">
+  <div class="modal">
+    <div class="mascot">🦸‍♂️🌟</div>
+    <h2 id="welcomeTitle">वेदांत, तयार आहेस ना?</h2>
+    <p>तुझ्या ज्ञानाच्या नव्या मोहिमेत तुझे स्वागत आहे! प्रत्येक प्रश्न म्हणजे एक नवे पाऊल आणि प्रत्येक प्रयत्न म्हणजे विजयाकडे वाटचाल.</p>
+    <p class="encourage">💙 वेदांत, तू खूप छान मुलगा आहेस. तू मेहनत करू शकतोस, शिकू शकतोस आणि नक्कीच प्रगती करू शकतोस!</p>
+    <p>चला, हसत-खेळत शिकायला सुरुवात करूया! 🚀</p>
+    <button class="btn btn-primary" id="startBtn">चला, सुरू करूया! 🎉</button>
+  </div>
+</div>
+
+<div class="overlay hidden" id="closingModal" role="dialog" aria-modal="true" aria-labelledby="closingTitle">
+  <div class="modal">
+    <div class="mascot">🏆🧸💛</div>
+    <h2 id="closingTitle">आजसाठी शाब्बास, वेदांत!</h2>
+    <p id="closingScore"></p>
+    <p class="encourage">वेदांत, तू तुझ्या परीने सर्वोत्तम प्रयत्न केलेस! तू खूप छान मुलगा आहेस. चुका झाल्या तरी हरकत नाही—तू त्यातून शिकत आहेस. स्वतःवर विश्वास ठेव आणि असाच चमकत राहा! 🌟</p>
+    <p>थोडी विश्रांती घे, पाणी पी आणि पुन्हा नव्या उत्साहाने अभ्यास कर. आम्हाला तुझा अभिमान आहे! 💙</p>
+    <button class="btn btn-primary" id="closeDoneBtn">धन्यवाद! पुन्हा भेटूया 👋</button>
+    <button class="btn btn-soft" id="continueBtn">आणखी सराव करायचा आहे</button>
+  </div>
+</div>
+
+<script>
+/*
+  टीप: खालील प्रश्न हे नमुना सराव प्रश्न आहेत.
+  अधिकृत मागील वर्षांचे प्रश्न म्हणून त्यांचा दावा केलेला नाही.
+  पुस्तकातील प्रश्न जोडण्यासाठी questionBank मध्ये प्रश्न वाढवा.
+*/
+const questionBank = {
+  "मराठी": [
+    {q:"‘आनंद’ या शब्दाचा समानार्थी शब्द कोणता?",options:["दुःख","हर्ष","राग","भीती"],answer:1,explanation:"‘आनंद’ आणि ‘हर्ष’ या दोन्ही शब्दांचा अर्थ खुशी असा होतो.",hint:"खुशी या अर्थाचा शब्द शोध."},
+    {q:"‘मोठा’ या शब्दाचा विरुद्धार्थी शब्द कोणता?",options:["उंच","जाड","लहान","लांब"],answer:2,explanation:"‘मोठा’ या शब्दाचा विरुद्धार्थी शब्द ‘लहान’ आहे.",hint:"आकाराने कमी असलेला शब्द."},
+    {q:"‘फुले’ या शब्दाचे एकवचन कोणते?",options:["फुल","फूल","फुला","फुली"],answer:1,explanation:"‘फुले’ हे अनेकवचन आहे. त्याचे एकवचन ‘फूल’ आहे.",hint:"एका फुलासाठी वापरला जाणारा शब्द."},
+    {q:"खालीलपैकी नाम कोणते?",options:["धावतो","सुंदर","पुस्तक","हळू"],answer:2,explanation:"‘पुस्तक’ हे वस्तूचे नाव आहे. म्हणून ते नाम आहे.",hint:"एखाद्या वस्तूचे नाव शोध."},
+    {q:"‘सूर्य’ या शब्दाचा समानार्थी शब्द कोणता?",options:["रवी","चंद्र","तारा","पाऊस"],answer:0,explanation:"‘सूर्य’ आणि ‘रवी’ हे समानार्थी शब्द आहेत.",hint:"सूर्याचे दुसरे नाव."},
+    {q:"‘जलद’ या शब्दाचा विरुद्धार्थी शब्द कोणता?",options:["वेगवान","संथ","चपळ","लवकर"],answer:1,explanation:"‘जलद’ म्हणजे वेगाने; त्याचा विरुद्धार्थी शब्द ‘संथ’ आहे.",hint:"हळू गती दर्शवणारा शब्द."},
+    {q:"खालीलपैकी क्रियापद कोणते?",options:["आंबा","गोड","धावणे","मोठा"],answer:2,explanation:"‘धावणे’ ही कृती आहे, म्हणून तो क्रियापदाचा प्रकार आहे.",hint:"कृती दाखवणारा शब्द शोध."},
+    {q:"‘आई’ या शब्दाचे अनेकवचन कोणते?",options:["आईं","आईया","माता","आई",],answer:2,explanation:"‘आई’ या शब्दासाठी ‘माता’ हा अर्थाने संबंधित शब्द आहे; अनेकवचनाचा हा प्रश्न योग्य प्रकारे मांडलेला नाही. शिक्षकांकडून शब्दरूप तपासून घ्या.",hint:"हा प्रश्न शिक्षकांसोबत तपास."}
+  ],
+  "गणित": [
+    {q:"२४५ + १३७ = किती?",options:["३७२","३८२","३९२","३६२"],answer:1,explanation:"२४५ + १३७ = ३८२.",hint:"एकक, दशक आणि शतक यांच्या बेरजा कर."},
+    {q:"९ × ७ = किती?",options:["५६","६३","७२","४९"],answer:1,explanation:"९ चा ७ पट म्हणजे ९ × ७ = ६३.",hint:"नऊचा पाढा आठव."},
+    {q:"५०० मधून २७५ वजा केल्यास किती उरतात?",options:["२२५","२३५","२१५","३२५"],answer:0,explanation:"५०० − २७५ = २२५.",hint:"५०० − २०० − ७५ असा विचार कर."},
+    {q:"एका आठवड्यात किती दिवस असतात?",options:["५","६","७","८"],answer:2,explanation:"एका आठवड्यात सात दिवस असतात.",hint:"सोमवार ते रविवार मोज."},
+    {q:"एका चौरसाला किती बाजू असतात?",options:["३","४","५","६"],answer:1,explanation:"चौरसाला चार समान बाजू असतात.",hint:"चौरसाच्या बाजू मोज."},
+    {q:"१२५ + २५० = किती?",options:["३२५","३७५","४००","३५०"],answer:1,explanation:"१२५ + २५० = ३७५.",hint:"१२५ मध्ये २५० मिळव."},
+    {q:"६४ ÷ ८ = किती?",options:["६","७","८","९"],answer:2,explanation:"६४ ला ८ ने भागल्यास उत्तर ८ येते, कारण ८ × ८ = ६४.",hint:"आठचा पाढा वापर."},
+    {q:"एका डब्यात ६ पेन्सिली आहेत. अशा ४ डब्यांत किती पेन्सिली?",options:["१०","१८","२४","२८"],answer:2,explanation:"६ पेन्सिली × ४ डबे = २४ पेन्सिली.",hint:"६ ची चार वेळा बेरीज कर."}
+  ],
+  "English": [
+    {q:"Choose the opposite of 'Hot'.",options:["Warm","Cold","Big","Tall"],answer:1,explanation:"'Cold' is the opposite of 'Hot'. Hot म्हणजे गरम आणि Cold म्हणजे थंड.",hint:"Think of the opposite of गरम."},
+    {q:"Choose the plural of 'Book'.",options:["Bookes","Bookies","Books","Book"],answer:2,explanation:"The plural of Book is Books. अनेकवचन करताना येथे s लावतात.",hint:"One book, two ____."},
+    {q:"Choose the correct article: ___ apple.",options:["A","An","Thee","No article"],answer:1,explanation:"We say 'An apple' because apple begins with a vowel sound.",hint:"Use A or An before a vowel sound."},
+    {q:"What is the Marathi meaning of 'Beautiful'?",options:["सुंदर","वाईट","लहान","जलद"],answer:0,explanation:"Beautiful म्हणजे सुंदर.",hint:"A word for something lovely."},
+    {q:"Choose the correct spelling.",options:["Skool","School","Schol","Scool"],answer:1,explanation:"The correct spelling is School.",hint:"S + ch + oo + l."},
+    {q:"Choose the correct word: The sun ___ in the east.",options:["rise","rises","rising","rose"],answer:1,explanation:"For a general fact with 'The sun', we say 'rises'. सूर्य पूर्वेला उगवतो.",hint:"The sun is one thing. Which verb form fits?"},
+    {q:"What is the opposite of 'Happy'?",options:["Glad","Joyful","Sad","Kind"],answer:2,explanation:"Sad is the opposite of Happy. Happy म्हणजे आनंदी; Sad म्हणजे दुःखी.",hint:"Think of the opposite of आनंदी."},
+    {q:"Choose the correct spelling.",options:["Frend","Friend","Freind","Friand"],answer:1,explanation:"The correct spelling is Friend.",hint:"Remember: fri-end is not the spelling; write Friend."}
+  ],
+  "बुद्धिमत्ता": [
+    {q:"२, ४, ६, ८, पुढील संख्या कोणती?",options:["९","१०","११","१२"],answer:1,explanation:"प्रत्येक वेळी २ मिळवले आहेत. ८ + २ = १०.",hint:"प्रत्येक संख्येत किती वाढ होते ते पाह."},
+    {q:"वेगळा शब्द ओळखा.",options:["आंबा","केळी","गाजर","सफरचंद"],answer:2,explanation:"गाजर ही भाजी आहे. बाकीची फळे आहेत.",hint:"या वस्तूंचे प्रकार ओळख."},
+    {q:"A, B, C, D, पुढील अक्षर कोणते?",options:["E","F","G","H"],answer:0,explanation:"इंग्रजी वर्णमालेत D नंतर E येते.",hint:"वर्णमालेचा क्रम आठव."},
+    {q:"एका हाताला ५ बोटे असतील, तर दोन हातांना किती बोटे?",options:["५","८","१०","१२"],answer:2,explanation:"दोन हातांची बोटे = ५ + ५ = १०.",hint:"५ ची दोनदा बेरीज कर."},
+    {q:"सोमवारनंतर तिसरा दिवस कोणता?",options:["मंगळवार","बुधवार","गुरुवार","शुक्रवार"],answer:2,explanation:"मंगळवार पहिला, बुधवार दुसरा आणि गुरुवार तिसरा दिवस.",hint:"मंगळवारपासून पुढे मोज."},
+    {q:"३, ६, ९, १२, पुढील संख्या कोणती?",options:["१३","१४","१५","१६"],answer:2,explanation:"प्रत्येक वेळी ३ मिळवले आहेत. १२ + ३ = १५.",hint:"तीन-तीनने वाढणारा क्रम आहे."},
+    {q:"वेगळा आकार कोणता?",options:["चौरस","त्रिकोण","वर्तुळ","गुलाब"],answer:3,explanation:"गुलाब हे फूल आहे; बाकी आकारांची नावे आहेत.",hint:"आकार नसलेली गोष्ट निवड."},
+    {q:"आज बुधवार असेल, तर उद्या कोणता वार?",options:["सोमवार","मंगळवार","गुरुवार","शुक्रवार"],answer:2,explanation:"बुधवारनंतर गुरुवार येतो.",hint:"वारांचा क्रम आठव."}
+  ]
+};
+
+const marathiDigits = n => String(n).replace(/\d/g, d => "०१२३४५६७८९"[Number(d)]);
+const $ = id => document.getElementById(id);
+let subject = "मराठी", questions = [], order = [], pos = 0, answered = false;
+let attempted = 0, correctCount = 0, skipped = 0, round = 1;
+let totalForSubject = questionBank[subject].length;
+
+function shuffle(arr){
+  const copy = [...arr];
+  for(let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];}
+  return copy;
+}
+function newRound(){
+  questions = shuffle(questionBank[subject]);
+  order = questions.map((_,i)=>i);
+  pos = 0;
+  round++;
+  $("result").style.display="none";
+  $("quizCard").style.display="block";
+  renderQuestion();
+}
+function renderQuestion(){
+  if(pos >= questions.length){showResult();return;}
+  const q=questions[pos];
+  answered=false;
+  $("question").textContent=q.q;
+  $("questionNumber").textContent="प्रश्न "+marathiDigits(pos+1)+" / "+marathiDigits(questions.length);
+  $("subjectName").textContent="विषय: "+subject;
+  $("roundName").textContent="सराव फेरी "+marathiDigits(round);
+  $("progressFill").style.width=(pos/questions.length*100)+"%";
+  $("feedback").className="feedback";
+  $("feedback").style.display="none";
+  $("feedback").textContent="";
+  $("hintBtn").classList.remove("hidden");
+  $("skipBtn").classList.remove("hidden");
+  $("nextBtn").classList.add("hidden");
+  $("options").innerHTML="";
+  q.options.forEach((opt,i)=>{
+    const b=document.createElement("button");
+    b.className="option";
+    const letter=document.createElement("span");
+    letter.className="letter";
+    letter.textContent=String.fromCharCode(65+i);
+    b.appendChild(letter);
+    b.appendChild(document.createTextNode(opt));
+    b.addEventListener("click",()=>checkAnswer(i));
+    $("options").appendChild(b);
+  });
+  $("quizCard").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function checkAnswer(i){
+  if(answered)return;
+  answered=true;attempted++;
+  const q=questions[pos], good=i===q.answer;
+  if(good)correctCount++;
+  [...$("options").children].forEach((b,j)=>{
+    b.disabled=true;
+    if(j===q.answer)b.classList.add("correct");
+    if(j===i && !good)b.classList.add("wrong");
+  });
+  const fb=$("feedback");
+  fb.className="feedback "+(good?"good":"bad");
+  fb.style.display="block";
+  if(good){
+    fb.innerHTML="🌟 <strong>शाब्बास! अगदी बरोबर उत्तर!</strong><br>वेदांत, खूप छान! असेच प्रयत्न करत राहा.<br><br><strong>📘 स्पष्टीकरण:</strong> "+q.explanation;
+  }else{
+    fb.innerHTML="💛 <strong>काही हरकत नाही, वेदांत! चुकांमधूनच शिकतो.</strong><br><span class='answer'>योग्य उत्तर: "+q.options[q.answer]+"</span><br><br><strong>📘 सोप्या भाषेत स्पष्टीकरण:</strong> "+q.explanation+"<br><br>हा प्रश्न पुन्हा वाच आणि योग्य उत्तर लक्षात ठेव. तू नक्की शिकशील!";
+  }
+  $("hintBtn").classList.add("hidden");
+  $("skipBtn").classList.add("hidden");
+  $("nextBtn").classList.remove("hidden");
+  $("nextBtn").textContent=pos===questions.length-1?"निकाल पाहूया 🏆":"पुढचा प्रश्न ➜";
+  updateStats();
+}
+function showHint(){
+  if(answered)return;
+  const fb=$("feedback"),q=questions[pos];
+  fb.className="feedback";
+  fb.style.display="block";
+  fb.innerHTML="💡 <strong>छोटासा संकेत:</strong> "+q.hint+"<br><span>घाई करू नकोस, शांतपणे विचार कर!</span>";
+}
+function skipQuestion(){
+  if(!answered)skipped++;
+  pos++;
+  renderQuestion();
+}
+function updateStats(){
+  $("attempted").textContent=marathiDigits(attempted);
+  $("correctCount").textContent=marathiDigits(correctCount);
+  $("accuracy").textContent=marathiDigits(attempted?Math.round(correctCount/attempted*100):0)+"%";
+}
+function showResult(){
+  $("progressFill").style.width="100%";
+  $("options").innerHTML="";
+  $("question").textContent="या फेरीतील सर्व प्रश्न झाले!";
+  $("feedback").style.display="none";
+  $("hintBtn").classList.add("hidden");
+  $("skipBtn").classList.add("hidden");
+  $("nextBtn").classList.add("hidden");
+  $("result").style.display="block";
+  const percent=attempted?Math.round(correctCount/attempted*100):0;
+  $("finalScore").textContent="एकूण उत्तर दिलेले प्रश्न: "+marathiDigits(attempted)+" | बरोबर उत्तरे: "+marathiDigits(correctCount)+" | अचूकता: "+marathiDigits(percent)+"%. "+(percent>=80?"वा! अप्रतिम कामगिरी! 🌟":percent>=50?"छान प्रयत्न! थोडा आणखी सराव करूया! 💪":"काही हरकत नाही. पुन्हा सराव केला की नक्की सुधारणा होईल! 💙");
+  $("closingScore").textContent="तू "+subject+" विषयाची एक फेरी पूर्ण केलीस. तुझी अचूकता "+marathiDigits(percent)+"% आहे. प्रत्येक प्रयत्न तुला पुढे घेऊन जातो!";
+  $("result").scrollIntoView({behavior:"smooth",block:"center"});
+  $("closingModal").classList.remove("hidden");
+}
+function chooseSubject(name){
+  subject=name;
+  document.querySelectorAll(".subject").forEach(b=>b.classList.toggle("active",b.dataset.subject===name));
+  $("paperInfo").textContent=(name==="मराठी"||name==="गणित")?"📘 पेपर १ — मराठी व गणित":"📗 पेपर २ — इंग्रजी व बुद्धिमत्ता चाचणी";
+  round=0;
+  newRound();
+}
+document.querySelectorAll(".subject").forEach(b=>b.addEventListener("click",()=>chooseSubject(b.dataset.subject)));
+$("startBtn").addEventListener("click",()=>{$("welcomeModal").classList.add("hidden");});
+$("hintBtn").addEventListener("click",showHint);
+$("skipBtn").addEventListener("click",skipQuestion);
+$("nextBtn").addEventListener("click",()=>{pos++;renderQuestion();});
+$("restartBtn").addEventListener("click",()=>{newRound();});
+$("closeDoneBtn").addEventListener("click",()=>{$("closingModal").classList.add("hidden");});
+$("continueBtn").addEventListener("click",()=>{$("closingModal").classList.add("hidden");newRound();});
+newRound();
+</script>
+</body>
+</html>
+'''
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(f"Created {path} ({len(html):,} characters)")
